@@ -322,6 +322,64 @@ void SyphonC4DServer::publishBuffer( VPBuffer *buf )
 	UNBIND_CONTEXT()
 }
 
+
+void SyphonC4DServer::publishBufferGL( BaseBitmap *bmp)
+{
+	if ( bmp == NULL )
+		return;
+    
+	BIND_CONTEXT()
+    
+	glEnable(mTarget);
+	glBindTexture(mTarget, mTexID);
+    
+    
+    Int32 bpp      = bmp->GetBt(); // Check this
+    Int32 width    = bmp->GetBw();
+    Int32 height   = bmp->GetBh();
+    Int32 bytes_pl = bmp->GetBpz();
+    
+    Int32 bytes_pp = bytes_pl / width;
+    
+	GLenum fmt = ( bytes_pp == 4 ? GL_RGBA : GL_RGB );
+    COLORMODE c_mode = ( bytes_pp == 4 ? COLORMODE_RGB : COLORMODE_ARGB );
+    Int32 cpp    = bytes_pp;
+    
+    Float32 *buffer = nullptr;
+    Int32 bufferSize = cpp * width;
+    
+    String s_bpp      = String::IntToString(bpp);
+    String s_width    = String::IntToString(width);
+    String s_height   = String::IntToString(height);
+    String s_bufSize  = String::IntToString(bufferSize);
+    String s_bytes_pl = String::IntToString(bytes_pl);
+    String s_bytes_pp = String::IntToString(bytes_pp);
+    
+    //    GePrint("Bits per pixel  : " + s_bpp);
+    //    GePrint("Width           : " + s_width);
+    //    GePrint("Height          : " + s_height);
+    //    GePrint("Buffer size     : " + s_bufSize);
+    //    GePrint("Bytes per line  : " + s_bytes_pl);
+    //    GePrint("Bytes per pixel : " + s_bytes_pp);
+    
+    
+    if (bufferSize > 0)
+        buffer       = NewMemClear(Float32, bufferSize);
+    
+    // Write the texture
+    for (int y=0; y<height; y++) {
+        bmp->GetPixelCnt(0, y, width, (UChar*)buffer, bytes_pp, c_mode, PIXELCNT_0);
+        glTexSubImage2D( mTarget, 0,0, (height-y-1), width, 1, fmt, GL_UNSIGNED_BYTE, buffer );
+    }
+    
+	this->publish();
+    
+    //	NSLog(@"publishBuffer PUBLISHED!");
+    
+	UNBIND_CONTEXT()
+}
+
+
 void SyphonC4DServer::publish()
 {
 	//NSLog(@"PUBLISH ctx [%ld]",(long)[[NSOpenGLContext currentContext] CGLContextObj]);

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		665DFF861B18CCB9005FE452 /* libcinema.framework.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DBB3C6951ABFCCFB0069BC97 /* libcinema.framework.a */; };
 		A0A66833391837B5E7010000 /* main.h in Headers */ = {isa = PBXBuildFile; fileRef = A0A66833391837B5E7000000 /* main.h */; };
 		A0A6683339E921D362010000 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0A6683339E921D362000000 /* main.cpp */; };
 		DB9F83DB1ABFA494000D523D /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB9F83DA1ABFA494000D523D /* Syphon.framework */; };
@@ -62,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				665DFF861B18CCB9005FE452 /* libcinema.framework.a in Frameworks */,
 				DBCACBB81AB78FFB00572BF4 /* AppKit.framework in Frameworks */,
 				DBCACBB61AB78FF500572BF4 /* OpenGL.framework in Frameworks */,
 				DB9F83DB1ABFA494000D523D /* Syphon.framework in Frameworks */,

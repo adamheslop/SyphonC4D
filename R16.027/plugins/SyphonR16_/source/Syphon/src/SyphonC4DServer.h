@@ -35,6 +35,7 @@
 //#include "cinder/gl/Texture.h"
 #include <string>
 #include "opengl/gl.h"
+#include "c4d_gl.h"
 
 typedef signed int c4d_Int32;
 typedef float c4d_Float32;
@@ -70,6 +71,8 @@ class SyphonC4DServer {
 
 	void publishLine( PixelPost *pp );
     void publishBuffer( VPBuffer *buf );
+    
+    void publishBufferGL( BaseBitmap *bmp);
 
 	//void publishLine( c4d_Int32 line, c4d_Float32 *col, c4d_Int32 xmin, c4d_Int32 xmax, c4d_Int32 comp, bool aa )
 
